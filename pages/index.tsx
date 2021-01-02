@@ -1,10 +1,14 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
-import { Snippet, snippets } from '../data/snippets'
+import { Snippet } from '../data/snippets'
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 export const getStaticProps: GetStaticProps = async () => {
+	const snippets = await prisma.snippet.findMany()
 	return {
 		props: {
 			snippets
