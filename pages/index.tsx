@@ -2,12 +2,12 @@ import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import { Snippet } from '../data/snippets'
 import Link from 'next/link'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetServerSideProps } from 'next'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
 	const snippets = await prisma.snippet.findMany()
 	return {
 		props: {
@@ -58,7 +58,7 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 		</Head>
 		<div className="row">
 			<div className="column to-right">
-				<Link href="/newsnippet">
+				<Link href="/new">
 					<a className="button button-outline heading-btn">New</a>
 				</Link>
 			</div>
