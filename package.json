@@ -5,23 +5,40 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start"
+		"start": "next start",
+		"testcafe": "testcafe -c 2 chrome ./testcafe/homepage* --video videos -s takeOnFails=true",
+		"cyrecord": "cypress run --record --spec ./cypress/integration/app/* --key 98956139-928a-4038-953f-9cfd571ca4a0",
+		"test": "jest --detectOpenHandles --forceExit",
+		"prisma": "npx prisma studio"
 	},
 	"dependencies": {
 		"@prisma/client": "^2.13.1",
 		"date-fns": "^2.11.1",
+		"formik": "^2.2.6",
 		"gray-matter": "^4.0.2",
 		"milligram": "^1.4.1",
 		"next": "^10.0.0",
 		"react": "16.13.1",
 		"react-dom": "16.13.1",
+		"react-toastify": "^6.2.0",
 		"remark": "^12.0.0",
 		"remark-html": "^12.0.0"
 	},
 	"devDependencies": {
+		"@ffmpeg-installer/ffmpeg": "^1.0.20",
 		"@prisma/cli": "^2.13.1",
+		"@testing-library/dom": "^7.29.4",
+		"@testing-library/jest-dom": "^5.11.9",
+		"@testing-library/react": "^11.2.3",
+		"@testing-library/user-event": "^12.6.0",
+		"@types/jest": "^26.0.20",
 		"@types/node": "^14.14.16",
 		"@types/react": "^17.0.0",
+		"babel-jest": "^26.6.3",
+		"cypress": "^6.2.1",
+		"jest": "^26.6.3",
+		"jest-fetch-mock": "^3.0.3",
+		"testcafe": "^1.10.1",
 		"typescript": "^4.1.3"
 	}
 }

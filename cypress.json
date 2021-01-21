@@ -1,0 +1,5 @@
+{
+  "projectId": "9fehwi",
+  "testFiles" :"app/*.spec.*",
+  "video": true
+}

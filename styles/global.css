@@ -62,3 +62,8 @@ body {
 	background-color: #F0675C;
 	border-color: #F0675C;
 }
+
+.error-msg {
+	color: rgb(255, 0, 0);
+	font-weight: 600;
+}

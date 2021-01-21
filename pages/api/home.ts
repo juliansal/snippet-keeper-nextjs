@@ -1,21 +1,27 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { getAllSnippets, deleteSnippet, postSnippet } from '../../data/snippets'
 
-export default (_: NextApiRequest, res: NextApiResponse) => {
+
+export default async (_: NextApiRequest, res: NextApiResponse)  => {
 	const { method } = _
-	console.log(_.body)
 
 	switch (method) {
 		case 'GET':
-			console.log("received GET request from homepage")
+			console.log("received GET request")
+			res.status(200).send(await getAllSnippets())
 			break
 		case 'POST':
-			console.log("received POST request from homepage", _.body.targetId)
+			console.log("received POST request", _.body)
+			await postSnippet(_.body)
+			res.status(200).send("sent...")
 			break
 		case 'PUT':
-			console.log("received PUT request from homepage", _.body.targetId)
+			console.log("received PUT request", _.body.targetId)
 			break
 		case 'DELETE':
-			console.log("received DELETE request from homepage", _.body.targetId)
+			console.log("received DELETE request", _.body.targetId)
+			await deleteSnippet(parseInt(_.body.targetId))
+			res.status(200).send("deleting...")
 			break
 		default:
 			res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE'])
