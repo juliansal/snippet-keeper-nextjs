@@ -18,6 +18,23 @@ test('should see copy buttons', async (browser) => {
 	
 })
 
+test('should see copy buttons', async (browser) => {
+	
+	await browser
+		.click(copyBtn)
+		.expect(Selector('h1').innerText)
+		.eql('Snippet Keeper')
+	
+})
+
+test('should see copy buttons', async (browser) => {
+	
+	await browser
+		.click(copyBtn)
+		.expect(Selector('h1').innerText)
+		.eql('Snippet Keeper')
+	
+})
 
 
 

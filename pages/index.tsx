@@ -33,6 +33,7 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({snippets}) => {
 	const router = useRouter()
 	const [isRefreshing, setIsRefreshing] = useState(false)
+	const [snipps, setSnipps] = useState(snippets)
 
 	useEffect(() => {
 		console.log("useEffect is in effect")
@@ -43,6 +44,25 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 		router.replace(router.asPath)
 		console.log("refreshData is in effect")
 		setIsRefreshing(true)
+	}
+
+	async function handleSelection(e: any) {
+		e.preventDefault()
+		e.persist()
+		let bank = e.target.value
+
+		const snippets = await fetch('http://localhost:3000/api/home/'+bank, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		.then(response => response.json())
+		.then(data => data)
+		.catch(err => console.log(err))
+		refreshData()
+
+		return setSnipps(snippets)
 	}
 
 	function handleDelete(e: any) {
@@ -89,12 +109,27 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 		window.getSelection()?.removeAllRanges()
 	}
 
+	function bankSelection() {
+		return (
+			<select name="bankSelection" onChange={(e) => handleSelection(e)}>
+				<option value="ABT">ABT</option>
+				<option value="CBT">CBT</option>
+				<option value="NBAZ">NBAZ</option>
+				<option value="NSB">NSB</option>
+				<option value="ZFNB">ZFNB</option>
+			</select>
+		)
+	}
+
 	return (
 		<Layout home>
 		<Head>
 			<title>{siteTitle}</title>
 		</Head>
 		<div className="row">
+			<div className="column to-left">
+				{ bankSelection() }
+			</div>
 			<div className="column to-right">
 				<Link href="/new">
 					<a className="button button-outline heading-btn">New</a>
@@ -103,7 +138,7 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 			</div>
 		</div>
 		<div id="snippets">
-		{ snippets.map(({ id, command, bankName }) => (
+		{ snipps.map(({ id, command, bankName }) => (
 			<div className="snippet" data-id={ id } key={ id }>
 				<div className="snippet-name"><span>{ bankName }</span></div>
 				<div className="snippet-cmd">{ command }</div>

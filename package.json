@@ -6,9 +6,10 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"testcafe": "testcafe -c 2 chrome ./testcafe/homepage* --video videos -s takeOnFails=true",
-		"cyrecord": "cypress run --record --spec ./cypress/integration/app/* --key 98956139-928a-4038-953f-9cfd571ca4a0",
+		"testcafe": "testcafe -c 2 chrome ./e2e/testcafe/homepage* --video videos -s takeOnFails=true",
 		"test": "jest --detectOpenHandles --forceExit",
+		"cy": "cypress open",
+		"cyrecord": "cypress run --record --spec ./cypress/integration/e2e/* --key 8fc53e6a-0f1c-4812-938c-006b8220c88f",
 		"prisma": "npx prisma studio"
 	},
 	"dependencies": {
@@ -35,7 +36,7 @@
 		"@types/node": "^14.14.16",
 		"@types/react": "^17.0.0",
 		"babel-jest": "^26.6.3",
-		"cypress": "^6.2.1",
+		"cypress": "^6.3.0",
 		"jest": "^26.6.3",
 		"jest-fetch-mock": "^3.0.3",
 		"testcafe": "^1.10.1",

@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client')
+const home = require('../pages/api/home')
 
 test('should have Snippets in the database', async () => {
 	const prisma = new PrismaClient()
@@ -6,3 +7,5 @@ test('should have Snippets in the database', async () => {
 	expect(await prisma.snippet).toBeTruthy()
 
 })
+
+

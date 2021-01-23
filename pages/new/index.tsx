@@ -7,15 +7,17 @@ import { InputField } from '../../components/form/inputFields'
 const NewSnippet: React.FC = () => {
 
 	function addSnippet(data: {}) {
+		let urlencoded = new URLSearchParams(data)
 		fetch('http://localhost:3000/api/home', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			body: JSON.stringify(data)
+			body: urlencoded
 		})
 		.then((res: Response) => res.text())
 		.then((data: String) => console.log(data))
+		.catch(err => console.error(err))
 	}
 
 	function snippetForm() {

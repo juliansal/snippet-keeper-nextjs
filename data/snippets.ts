@@ -8,6 +8,15 @@ export const getAllSnippets = async () => {
 	return await prisma.snippet.findMany()
 }
 
+export const getSnippets = async (param: any) => {
+	console.log(param)
+	return await prisma.snippet.findMany({
+		where: {
+			bankName: param
+		}
+	})
+}
+
 export const deleteSnippet = async (id: number) => {
 	return await prisma.snippet.delete({
 		where: { id: id }
