@@ -31,19 +31,19 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({snippets}) => {
-	const router = useRouter()
-	const [isRefreshing, setIsRefreshing] = useState(false)
 	const [snipps, setSnipps] = useState(snippets)
 
-	useEffect(() => {
-		console.log("useEffect is in effect")
-		setIsRefreshing(false)
-	}, [snippets])
+	const refreshData = async () => {
+		await fetch('http://localhost:3000/api/home', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		.then(response => response.json())
+		.then(data => setSnipps(data))
+		.catch(err => console.log(err))
 
-	const refreshData = () => {
-		router.replace(router.asPath)
-		console.log("refreshData is in effect")
-		setIsRefreshing(true)
 	}
 
 	async function handleSelection(e: any) {
@@ -51,18 +51,16 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 		e.persist()
 		let bank = e.target.value
 
-		const snippets = await fetch('http://localhost:3000/api/home/'+bank, {
+		await fetch('http://localhost:3000/api/home/'+bank, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
 		.then(response => response.json())
-		.then(data => data)
+		.then(data => setSnipps(data))
 		.catch(err => console.log(err))
-		refreshData()
 
-		return setSnipps(snippets)
 	}
 
 	function handleDelete(e: any) {
