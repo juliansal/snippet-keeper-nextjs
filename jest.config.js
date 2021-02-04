@@ -6,5 +6,8 @@
 module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
-  testMatch: ['<rootDir>/specs/*.spec.js']
+  testMatch: ['<rootDir>/specs/*.spec.js'],
+  moduleNameMapper: {
+	'^.+\\.(css|less)$': '<rootDir>/css.stub.js'
+  }
 };

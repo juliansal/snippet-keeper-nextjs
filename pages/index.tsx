@@ -1,10 +1,9 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Layout, { siteTitle } from '../components/layout'
 import { Snippet } from '../data/snippets'
 import Link from 'next/link'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, GetStaticProps } from 'next'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -110,6 +109,7 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 	function bankSelection() {
 		return (
 			<select name="bankSelection" onChange={(e) => handleSelection(e)}>
+				<option value="All">All</option>
 				<option value="ABT">ABT</option>
 				<option value="CBT">CBT</option>
 				<option value="NBAZ">NBAZ</option>
