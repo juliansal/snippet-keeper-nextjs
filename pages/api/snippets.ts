@@ -10,24 +10,22 @@ export default async (_: NextApiRequest, res: NextApiResponse)  => {
 			console.log("received GET request")
 			try {
 				const data = await getAllSnippets()
-				res
-					.status(200)
-					.send(data)
+				res.send(data)
 			} catch (error) {
 				res
 					.status(500)
-					.json({error: "Sorry couldn't connect to the database"})
+					.send("Sorry couldn't connect to the database")
 			}
 			break
 		case 'POST':
 			console.log("received POST request", _.body)
 			try {
 				await postSnippet(_.body)
-				res.status(200).send("sent...")
+				res.send("sent...")
 			} catch (error) {
 				res
 					.status(500)
-					.json({error: "Sorry couldn't connect to the database"})
+					.send("Sorry couldn't connect to the database")
 			}
 			break
 		case 'PUT':
@@ -37,11 +35,11 @@ export default async (_: NextApiRequest, res: NextApiResponse)  => {
 			console.log("received DELETE request", _.body.targetId)
 			try {
 				await deleteSnippet(parseInt(_.body.targetId))
-				res.status(200).send("deleting...")
+				res.send("deleting...")
 			} catch (error) {
 				res
 					.status(500)
-					.json({error: "Sorry couldn't connect to the database"})
+					.send("Sorry couldn't connect to the database")
 			}
 			break
 		default:

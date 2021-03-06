@@ -3,24 +3,25 @@ import Link from 'next/link'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Layout, { siteTitle } from '../../components/layout'
 import { InputField } from '../../components/form/inputFields'
+import Router from 'next/router'
 
 const NewSnippet: React.FC = () => {
 
-	function addSnippet(data: {}) {
+	const addSnippet = async (data: {}) => {
 		let urlencoded = new URLSearchParams(data)
-		fetch('http://localhost:3000/api/home', {
+		const res: Response = await fetch('http://localhost:3000/api/snippets', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			body: urlencoded
 		})
-		.then((res: Response) => res.text())
-		.then((data: String) => console.log(data))
-		.catch(err => console.error(err))
+		const text = await res.text()
+		console.log(text)
+		await Router.push('/')
 	}
 
-	function snippetForm() {
+	const SnippetForm: React.FC = () => {
 		return (
 			<Formik
 				initialValues={{ bankField: '', commandField: '' }}
@@ -80,7 +81,7 @@ const NewSnippet: React.FC = () => {
 						</Link>
 					</div>
 				</div>
-				{ snippetForm() }
+				<SnippetForm />
 			</>
 		</Layout>
 	)

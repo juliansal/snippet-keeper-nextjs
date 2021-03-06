@@ -15,14 +15,11 @@ export default async (_: NextApiRequest, res: NextApiResponse)  => {
 				} else {
 					data = await getSnippets(_.query["bank"])
 				}
-
-				res
-					.status(200)
-					.send(data)
+				res.send(data)
 			} catch (error) {
 				res
 					.status(500)
-					.json({error: "Sorry couldn't connect to the database"})
+					.send("Sorry couldn't connect to the database")
 			}
 			break
 		default:

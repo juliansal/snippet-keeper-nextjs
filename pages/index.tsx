@@ -1,22 +1,14 @@
 import Head from 'next/head'
 import { useState } from 'react'
 import Layout, { siteTitle } from '../components/layout'
-import { Snippet } from '../data/snippets'
+import { Snippet, getAllSnippets } from '../data/snippets'
 import Link from 'next/link'
 import { GetServerSideProps, GetStaticProps } from 'next'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const snippets = await fetch('http://localhost:3000/api/home', {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	})
-	.then(response => response.json())
-	.then(data => data)
-	.catch(err => console.log(err))
+	const snippets = await getAllSnippets()
 
 	return {
 		props: {
@@ -33,58 +25,53 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 	const [snipps, setSnipps] = useState(snippets)
 
 	const refreshData = async () => {
-		await fetch('http://localhost:3000/api/home', {
+		const res = await fetch('http://localhost:3000/api/snippets', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
-		.then(response => response.json())
-		.then(data => setSnipps(data))
-		.catch(err => console.log(err))
+		const data = await res.json()
+		setSnipps(data)
 
 	}
 
-	async function handleSelection(e: any) {
+	const handleSelection = async (e:any) => {
 		e.preventDefault()
 		e.persist()
 		let bank = e.target.value
 
-		await fetch('http://localhost:3000/api/home/'+bank, {
+		const res = await fetch('http://localhost:3000/api/snippets/'+bank, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		})
-		.then(response => response.json())
-		.then(data => setSnipps(data))
-		.catch(err => console.log(err))
+		const data = await res.json()
+		setSnipps(data)
 
 	}
 
-	function handleDelete(e: any) {
+	const handleDelete = async (e:any) => {
 		e.preventDefault()
 		e.persist()
 		const targetId = e.target.parentNode.parentNode.getAttribute('data-id')
-		fetch('/api/home', {
+		const res = await fetch('/api/snippets', {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({targetId})
 		})
-		.then((res: Response) => res.text())
-		.then((data: String) => {
-			console.log(data)
-			refreshData()
-		})
-		.catch(err => console.log(err))
+		const data = await res.text()
+		console.log(data)
+		refreshData()
 	}
 
-	function handleCopy(e: any) {
+	const handleCopy = async (e:any) => {
 		e.preventDefault()
 		e.persist()
-		const targetCmd: HTMLCollection = e.target.parentNode.parentNode.childNodes
+		const targetCmd: HTMLCollection = await e.target.parentNode.parentNode.childNodes
 		let copyCmd: any
 
 		for (let i = 0; i < targetCmd.length; i++) {
@@ -94,7 +81,7 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 			}
 		}
 
-		copyCommand(copyCmd)
+		copyCommand(await copyCmd)
 	}
 
 	function copyCommand(copyCmd: any) {
