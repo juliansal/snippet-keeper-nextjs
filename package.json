@@ -9,6 +9,7 @@
 		"test": "jest -- newSnippets.spec.js --detectOpenHandles --forceExit",
 		"cy": "cypress open",
 		"cyrecord": "cypress run --record --spec ./cypress/integration/e2e/* --key 8fc53e6a-0f1c-4812-938c-006b8220c88f",
+		"cy-verify": "cypress verify",
 		"prisma": "npx prisma studio",
 		"update-db": "npx prisma db push --preview-feature"
 	},
