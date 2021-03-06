@@ -24,4 +24,10 @@ describe('Visit Snippet Keeper', () => {
 			.should('have.text', 'Snippet Keeper')
 	})
 
+	it('should fail test', () => {	
+		cy
+			.get('h1')
+			.should('be.empty')
+	})
+
 })
