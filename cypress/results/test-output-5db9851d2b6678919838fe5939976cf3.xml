@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="1.2310" tests="3" failures="1">
+  <testsuite name="Root Suite" timestamp="2021-03-09T05:36:00" tests="0" file="cypress\integration\e2e\homepage.e2e.js" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="My first test" timestamp="2021-03-09T05:36:00" tests="1" time="0.1030" failures="0">
+    <testcase name="My first test does not do much" time="0.1030" classname="does not do much">
+    </testcase>
+  </testsuite>
+  <testsuite name="Visit Snippet Keeper" timestamp="2021-03-09T05:36:00" tests="2" time="1.1280" failures="1">
+    <testcase name="Visit Snippet Keeper should see copy buttons" time="1.1280" classname="should see copy buttons">
+    </testcase>
+    <testcase name="Visit Snippet Keeper should fail test" time="0.0000" classname="should fail test">
+      <failure message="Timed out retrying after 4000ms: expected &apos;&lt;h1&gt;&apos; to be &apos;empty&apos;" type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 4000ms: expected '<h1>' to be 'empty'
+    at Context.eval (https://snippet-keeper-nextjs.vercel.app/__cypress/tests?p=cypress\integration\e2e\homepage.e2e.js:112:18)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,165 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 3,
+    "passes": 2,
+    "pending": 0,
+    "failures": 1,
+    "start": "2021-03-09T07:30:24.820Z",
+    "end": "2021-03-09T07:30:33.195Z",
+    "duration": 8375,
+    "testsRegistered": 3,
+    "passPercent": 66.66666666666666,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "654bdf38-72de-4a38-9a04-3ff123cf065e",
+      "title": "",
+      "fullFile": "cypress\\integration\\e2e\\homepage.e2e.js",
+      "file": "cypress\\integration\\e2e\\homepage.e2e.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "2c46ea41-dd51-495c-9e04-8145b9a3cc25",
+          "title": "My first test",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "does not do much",
+              "fullTitle": "My first test does not do much",
+              "timedOut": null,
+              "duration": 91,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "expect(true).to.equal(true);",
+              "err": {},
+              "uuid": "35a23041-0ff3-40a4-bb95-0dcce543c39b",
+              "parentUUID": "2c46ea41-dd51-495c-9e04-8145b9a3cc25",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "35a23041-0ff3-40a4-bb95-0dcce543c39b"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 91,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "6885a6fa-6f4a-4504-aa91-0e35e4845e4e",
+          "title": "Visit Snippet Keeper",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should see copy buttons",
+              "fullTitle": "Visit Snippet Keeper should see copy buttons",
+              "timedOut": null,
+              "duration": 1002,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('button').contains('Copy').click();\ncy.get('h1').should('have.text', 'Snippet Keeper');",
+              "err": {},
+              "uuid": "f4743d57-e215-4b6b-989b-0b8ccb72f495",
+              "parentUUID": "6885a6fa-6f4a-4504-aa91-0e35e4845e4e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should fail test",
+              "fullTitle": "Visit Snippet Keeper should fail test",
+              "timedOut": null,
+              "duration": 4769,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "\"/cypress/screenshots/e2e\\\\homepage.e2e.js/Visit Snippet Keeper -- should fail test (failed).png\"",
+              "code": "cy.get('h1').should('be.empty');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: expected '<h1>' to be 'empty'",
+                "estack": "AssertionError: Timed out retrying after 4000ms: expected '<h1>' to be 'empty'\n    at Context.eval (https://snippet-keeper-nextjs.vercel.app/__cypress/tests?p=cypress\\integration\\e2e\\homepage.e2e.js:112:18)",
+                "diff": null
+              },
+              "uuid": "ea663bb1-933f-4247-ab37-ea4f1173fb82",
+              "parentUUID": "6885a6fa-6f4a-4504-aa91-0e35e4845e4e",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f4743d57-e215-4b6b-989b-0b8ccb72f495"
+          ],
+          "failures": [
+            "ea663bb1-933f-4247-ab37-ea4f1173fb82"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 5771,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.2.2"
+    },
+    "marge": {
+      "options": {
+        "mochaFile": "cypress/results/test-output-[hash].xml"
+      },
+      "version": "5.2.0"
+    }
+  }
+}
