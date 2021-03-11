@@ -9,7 +9,7 @@ describe('My first test', () => {
 
 describe('Visit Snippet Keeper', () => {
 	beforeEach(() => {
-		cy.visit('http://localhost:3000/')
+		cy.visit('https://snippet-keeper-nextjs.vercel.app/')
 		console.log("About to run test")
 	})
 
@@ -22,6 +22,12 @@ describe('Visit Snippet Keeper', () => {
 		cy
 			.get('h1')
 			.should('have.text', 'Snippet Keeper')
+	})
+
+	it('should fail test', () => {	
+		cy
+			.get('h1')
+			.should('be.empty')
 	})
 
 })

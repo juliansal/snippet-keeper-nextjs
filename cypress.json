@@ -1,3 +1,11 @@
 {
-  "projectId": "pgyrjr"
+	"projectId": "pgyrjr",
+	"reporter": "mochawesome",
+	"reporterOptions": {
+		"mochaFile": "cypress/results/test-output-[hash].xml"
+	},
+	"experimentalRunEvents": true,
+	"spec": "cypress/integration/e2e/*",
+	"key": "8fc53e6a-0f1c-4812-938c-006b8220c88f",
+	"record": true
 }
