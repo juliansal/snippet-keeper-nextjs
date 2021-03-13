@@ -4,20 +4,24 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Layout, { siteTitle } from '../../components/layout'
 import { InputField } from '../../components/form/inputFields'
 import Router from 'next/router'
+import { getSession } from 'next-auth/client'
 
 const NewSnippet: React.FC = () => {
 
 	const addSnippet = async (data: {}) => {
 		let urlencoded = new URLSearchParams(data)
-		const res: Response = await fetch('/api/snippets', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: urlencoded
-		})
-		const text = await res.text()
-		console.log(text)
+		const session = await getSession()
+		if (session?.user.name === "Julio Salguero") {
+			const res: Response = await fetch('/api/snippets', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: urlencoded
+			})
+			const text = await res.text()
+			console.log(text)
+		}
 		await Router.push('/')
 	}
 

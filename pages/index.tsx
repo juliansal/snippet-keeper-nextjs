@@ -4,13 +4,18 @@ import Layout, { siteTitle } from '../components/layout'
 import { getAllSnippets } from '../data/snippets'
 import { Snippet } from '../data/data-types'
 import Link from 'next/link'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, GetStaticProps } from 'next'
 import { ToastContainer, toast } from 'react-toastify'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { getSession, signIn, signOut, useSession } from 'next-auth/client'
 import 'react-toastify/dist/ReactToastify.css'
 
-export const getServerSideProps: GetServerSideProps = async () => {
-	const snippets = await getAllSnippets()
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+	const session = await getSession(ctx)
+	let snippets = null
+
+	if (session) {
+		snippets = await getAllSnippets()
+	}
 
 	return {
 		props: {
@@ -59,16 +64,20 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 		e.preventDefault()
 		e.persist()
 		const targetId = e.target.parentNode.parentNode.getAttribute('data-id')
-		const res = await fetch('/api/snippets', {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({targetId})
-		})
-		const data = await res.text()
-		console.log(data)
-		refreshData()
+		if (session?.user.name === "Julio Salguero") {
+			const res = await fetch('/api/snippets', {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({targetId})
+			})
+			const data = await res.text()
+			console.log(data)
+			refreshData()
+		} else {
+			toast("Bitch, you can't hack this shit!")
+		}
 	}
 
 	const handleCopy = async (e:any) => {
@@ -134,7 +143,7 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 				</div>
 			</div>
 			<div id="snippets">
-			{ snipps.map(({ id, command, bankName }) => (
+			{ snipps?.map(({ id, command, bankName }) => (
 				<div className="snippet" data-id={ id } key={ id }>
 					<div className="snippet-name"><span>{ bankName }</span></div>
 					<div className="snippet-cmd">{ command }</div>
