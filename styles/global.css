@@ -49,9 +49,9 @@ body {
 	color: #163143;
 }
 
-.heading-btn {
+/* .heading-btn {
 	margin-top: 12px;
-}
+} */
 
 .snippet-copy>button {
 	background-color: #163143;
@@ -66,4 +66,8 @@ body {
 .error-msg {
 	color: rgb(255, 0, 0);
 	font-weight: 600;
+}
+
+.sign-out, .sign-in {
+	margin: 0px 20px 0px auto;
 }

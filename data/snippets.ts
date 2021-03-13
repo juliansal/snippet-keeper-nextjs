@@ -1,8 +1,4 @@
-import { Prisma, PrismaClient } from '@prisma/client'
-
-export type Snippet = Prisma.SnippetGetPayload<{}>
-
-const prisma = new PrismaClient()
+import prisma from './prisma'
 
 export const getAllSnippets = async () => {
 	return await prisma.snippet.findMany()

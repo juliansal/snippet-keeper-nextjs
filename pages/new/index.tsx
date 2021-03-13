@@ -9,7 +9,7 @@ const NewSnippet: React.FC = () => {
 
 	const addSnippet = async (data: {}) => {
 		let urlencoded = new URLSearchParams(data)
-		const res: Response = await fetch('http://localhost:3000/api/snippets', {
+		const res: Response = await fetch('/api/snippets', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'

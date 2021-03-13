@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import { useState } from 'react'
 import Layout, { siteTitle } from '../components/layout'
-import { Snippet, getAllSnippets } from '../data/snippets'
+import { getAllSnippets } from '../data/snippets'
+import { Snippet } from '../data/data-types'
 import Link from 'next/link'
-import { GetServerSideProps, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { ToastContainer, toast } from 'react-toastify'
+import { signIn, signOut, useSession } from 'next-auth/client'
 import 'react-toastify/dist/ReactToastify.css'
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -22,10 +24,11 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({snippets}) => {
+	const [session, loading] = useSession()
 	const [snipps, setSnipps] = useState(snippets)
 
 	const refreshData = async () => {
-		const res = await fetch('http://localhost:3000/api/snippets', {
+		const res = await fetch('/api/snippets', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
@@ -41,7 +44,7 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 		e.persist()
 		let bank = e.target.value
 
-		const res = await fetch('http://localhost:3000/api/snippets/'+bank, {
+		const res = await fetch('/api/snippets/'+bank, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json'
@@ -106,38 +109,51 @@ const Home: React.FC<HomeProps> = ({snippets}) => {
 		)
 	}
 
-	return (
+	if (loading) {
+		return <div>Loading...</div>
+	}
+
+	if (session) {
+		return (
 		<Layout home>
-		<Head>
-			<title>{siteTitle}</title>
-		</Head>
-		<div className="row">
-			<div className="column to-left">
-				{ bankSelection() }
-			</div>
-			<div className="column to-right">
-				<Link href="/new">
-					<a className="button button-outline heading-btn">New</a>
-				</Link>
-				<ToastContainer/>
-			</div>
-		</div>
-		<div id="snippets">
-		{ snipps.map(({ id, command, bankName }) => (
-			<div className="snippet" data-id={ id } key={ id }>
-				<div className="snippet-name"><span>{ bankName }</span></div>
-				<div className="snippet-cmd">{ command }</div>
-				<div className="snippet-delete">
-					<button onClick={(e) => handleDelete(e)} className='button'>Delete</button>
+			<Head>
+				<title>{siteTitle}</title>
+			</Head>
+			<div className="row">
+				<div className="column to-left">
+					{ bankSelection() }
 				</div>
-				<div className="snippet-copy">
-					<button onClick={(e) => handleCopy(e)} className='button-black'>Copy</button>
+				<div className="column to-right">
+					<button 
+						className="sign-out"
+						onClick={() => signOut()}>Sign Out</button>
+					<Link href="/new">
+						<a className="button button-outline heading-btn">New</a>
+					</Link>
+					<ToastContainer/>
 				</div>
 			</div>
-		))}
-		</div>
+			<div id="snippets">
+			{ snipps.map(({ id, command, bankName }) => (
+				<div className="snippet" data-id={ id } key={ id }>
+					<div className="snippet-name"><span>{ bankName }</span></div>
+					<div className="snippet-cmd">{ command }</div>
+					<div className="snippet-delete">
+						<button onClick={(e) => handleDelete(e)} className='button'>Delete</button>
+					</div>
+					<div className="snippet-copy">
+						<button onClick={(e) => handleCopy(e)} className='button-black'>Copy</button>
+					</div>
+				</div>
+			))}
+			</div>
 		</Layout>
-	)
+		)
+	} else {
+		return (
+			<button onClick={() => signIn()}>Sign In</button>
+		)
+	}
 }
 
 export default Home

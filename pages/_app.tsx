@@ -1,7 +1,12 @@
 import 'milligram/dist/milligram.min.css'
 import '../styles/global.css'
 import { AppProps } from 'next/app'
+import { Provider } from 'next-auth/client'
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+	return (
+	<Provider session={pageProps.session}>
+		<Component {...pageProps} />
+	</Provider>
+	)
 }
