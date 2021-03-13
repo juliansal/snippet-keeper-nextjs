@@ -1,4 +1,6 @@
-import prisma from './prisma'
+import prismaClient from './prisma'
+
+const prisma = prismaClient()
 
 export const getAllSnippets = async () => {
 	return await prisma.snippet.findMany()
